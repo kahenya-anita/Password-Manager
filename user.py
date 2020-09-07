@@ -32,6 +32,7 @@ class User:
     @classmethod
     def copy_user(cls,User):
         pyperclip.copy(User)
+        pyperclip.paste(User)
 
     def display_users(self,cls):
         '''
