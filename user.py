@@ -12,3 +12,11 @@ class User:
         self.acc_type = acc_type
         self.password = password
         self.confirm_password = confirm_password
+
+    def save_user(self):
+        '''
+        save_user saves user objects to user_list
+        '''
+        User.user_list.append(self)
+
+    
