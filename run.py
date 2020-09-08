@@ -1,35 +1,10 @@
+#!/usr/bin/env python3.6
 from user import User
-import pyperclip
+import password
 import random
 
-def create_user(user_name,acc_type,password,confirm_password):
-    '''
-    Function to create a new user
-    '''
-    new_user = User(user_name,acc_type,password,confirm_password)
-    return new_user
+password_obj=password.Password()
 
-def save_users(user):
-    '''
-    Function to save user
-    '''
-    User.save_user()
-
-def del_user(user):
-    '''
-    Function to delete a user
-    '''
-    user.delete_user()
-
-def display_users():
-    '''
-    Function that returns all the saved users
-    '''
-    return User.display_users()
-
-def copy_user(User):
-        pyperclip.copy(User)
-        pyperclip.paste(User)
 
 def main():
     print("Hello Welcome to Password Manager. What is your name?")
@@ -44,7 +19,7 @@ def main():
                     short_code = input().lower()
 
                     if short_code == 'ca':
-                            print(" Lets create a New Account")
+                            print("-----Lets create a New Account-----")
                             
                             print ("Provide Username ....")
                             user_name = input('username: ')
@@ -59,22 +34,29 @@ def main():
                             confirm_password = input('Confirm Password: ')
                             print('Congratulations your new account is set up!!')
 
-                            save_users(create_user(user_name,acc_type,password,confirm_password)) # create and save new user account.
+                            (user_name,acc_type,password,confirm_password) # create and save new user account.
                             print ('\n')
                             print(f"New User {user_name} {acc_type} created")
                             print ('\n')
 
                     elif short_code =='lg':
-                        print('Welcome back')
+                        print('---Welcome back---')
                         print('Enter credentials')
-                        entered_user_name = input('username:')
-                        entered_acc_type = input('acc_type: ')
-                        password = input('password: ')
-                        confirm_password = input('confirm password: ')
-                        print('login was successful.')
+                        login_user_name = input('username: ')
+                        login_acc_type = input('acc_type: ')
+                        login_password = input('password: ')
+                        confirm_password_login = input('confirm password: ')
+                        login_valid = User.user.check_login(login_user_name,login_password,login_acc_type,confirm_password_login)
+                        if login_valid:
+                            print('login was successful.')
+                            is_login = False
+                            user_obj = User.User.return_user(login_user_name,login_acc_type,login_password,confirm_password_login)
+                            main(login_user_name,user_obj)
+                        else:
+                                print('Login was unsuccessful.Please try again.')
                     elif short_code == 'da':
 
-                            if display_users():
+                            if display_user():
                                     print("Here is a list of all your accounts")
                                     print('\n')
 
