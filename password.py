@@ -1,6 +1,5 @@
 import string
 import random
-import pyperclip
 class Password:
     """
     Class that generates system given passwords.
@@ -35,7 +34,6 @@ class Password:
                 print("**Invalid input. Use numbers.")
                 num_valid=True
             
-        sys_password="".join(random.sample(cls.password_chars, k=pass_length))
-        pyperclip.copy(sys_password)               
+        sys_password="".join(random.sample(cls.password_chars, k=pass_length))               
         return sys_password
  

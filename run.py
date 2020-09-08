@@ -1,8 +1,9 @@
 #!/usr/bin/env python3.6
-import user
-import password
+from user import User
+from credentials import Credentials
+from password import Password
 
-password_obj=password.Password()
+password_obj=Password.password()
 def sign_up():
     '''
     Function that allows a new user to sign up.
@@ -46,7 +47,7 @@ def sign_up():
             print("**Invalid choice. Choose Y/n")
             want_password_valid=True
 
-    new_user=user.User(username_signup,password_signup)
+    new_user=User.user(username_signup,password_signup)
     new_user.add_user(new_user)
 
 
@@ -59,7 +60,7 @@ def main():
     print('\n')
 
     while True:
-                    print("Use these short codes : ca - create a new account,lg - login to your account, da - display accounts, del - delete account, ex -exit the user list ")
+                    print("Use these short codes : ca - create a new account,lg - login to your account, del - delete account, ex -exit the user list ")
 
                     short_code = input().lower()
 
@@ -91,28 +92,14 @@ def main():
                         login_acc_type = input('acc_type: ')
                         login_password = input('password: ')
                         confirm_password_login = input('confirm password: ')
-                        login_valid = user.User.check_login(login_user_name,login_password,login_acc_type,confirm_password_login)
+                        login_valid = User.user.check_login(login_user_name,login_password,login_acc_type,confirm_password_login)
                         if login_valid:
                             print('login was successful.')
                             is_login = False
-                            user_obj = user.user.return_user(login_user_name,login_acc_type,login_password,confirm_password_login)
+                            user_obj = User.user.return_user(login_user_name,login_acc_type,login_password,confirm_password_login)
                             main(login_user_name,user_obj)
                         else:
                                 print('Login was unsuccessful.Please try again.')
-                    elif short_code == 'da':
-
-                            if display_users_():
-                                    print("Here is a list of all your accounts")
-                                    print('\n')
-
-                                    for user in display_user():
-                                            print(f"{user.user_name} {user.acc_type} .....{user.password}")
-
-                                    print('\n')
-                            else:
-                                    print('\n')
-                                    print("You dont seem to have any account saved yet")
-                                    print('\n')
 
                     elif short_code == 'da':
 

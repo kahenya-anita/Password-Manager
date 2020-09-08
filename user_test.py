@@ -1,5 +1,4 @@
 import unittest # Importing the unittest module
-import pyperclip #Import pyperclip
 from user import User # Importing the user class
 from account import Account #Importing account class 
 from password import Password #Importing password
@@ -44,15 +43,6 @@ class TestUser(unittest.TestCase):
         print("-"*40)
         pass_length=int(input("Test sys password length (at least 5): "))
         self.assertEqual(len(Password.gen_password()), pass_length)
-
-    def test_gen_password_copy(self):
-        '''
-        test_gen_password_copy to test if password generated is copied to clipboard.
-        '''
-        print(" ")
-        print("Copy system password to clipboard test")
-        print("-"*40)
-        self.assertEqual(Password.gen_password(), pyperclip.paste())  
 
     def test_account_init(self):
         '''
