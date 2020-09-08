@@ -1,4 +1,4 @@
-import pyperclip
+import credentials
 class User:
     """
     Class that generates new instances of user-info
@@ -29,13 +29,19 @@ class User:
         User.user_list.remove(self)
 
     @classmethod
-    @classmethod
-    def copy_user(cls,User):
-        pyperclip.copy(User)
-        pyperclip.paste(User)
+    def add_user(cls,new_user):
+        '''
+        add_user adds user to user_list
+        '''
+        cls.user_list.append(new_user)
 
-    def display_users(self,cls):
+    @classmethod
+    def display_users(cls,user_name,acc_type,password):
         '''
         method that returns the user list
         '''
-        return cls.user_list
+        for user in cls.user_list:
+            if user.user_name == user_name:
+               if user.acc_type == acc_type:
+                  if user.password == password:
+                       return user
