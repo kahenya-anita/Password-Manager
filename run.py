@@ -1,19 +1,64 @@
 #!/usr/bin/env python3.6
-from user import User
+import user
 import password
-import random
 
 password_obj=password.Password()
+def sign_up():
+    '''
+    Function that allows a new user to sign up.
+    '''
+    
+    username_signup=" "
+    password_signup=" " 
+
+    print(" ")
+    print("-----Sign up here-----")
+    username_valid=True
+    while username_valid:
+        username_signup=input("Username (at least 5 chars): ")
+        if len(username_signup)<5:
+            username_valid=True
+            print("**Username too short. Try again.")
+        else:
+            username_valid=False 
+        
+    want_password_valid=True
+    while want_password_valid:        
+        want_sys_password=input("Want system generated password? (Y/n): ")        
+        if want_sys_password=="Y":
+            want_password_valid=False
+            password_signup=password_obj.gen_password()            
+            print("Your password: "+password_signup+" (copied to clipboard)")
+            print("Signup successful!")
+        elif want_sys_password=="n":
+            password_signup=input("Password (at least 5 chars): ")
+            password_confirm=input("Confirm password: ")
+            if len(password_signup)<5:
+                want_password_valid=True
+                print("**Password too short. Try again.")
+            elif password_confirm==password_signup:
+                print("Signup successful!")                
+                want_password_valid=False
+            else:
+                print("**Passwords did not match. Try again.")
+                want_password_valid=True
+        else:
+            print("**Invalid choice. Choose Y/n")
+            want_password_valid=True
+
+    new_user=user.User(username_signup,password_signup)
+    new_user.add_user(new_user)
+
 
 
 def main():
     print("Hello Welcome to Password Manager. What is your name?")
-            your_name = input()
+    your_name = input('Your name: ')
 
-            print(f"Hello {'your_name'}. what would you like to do?")
-            print('\n')
+    print(f"Hello {'your_name'}. what would you like to do?")
+    print('\n')
 
-            while True:
+    while True:
                     print("Use these short codes : ca - create a new account,lg - login to your account, da - display accounts, del - delete account, ex -exit the user list ")
 
                     short_code = input().lower()
@@ -46,21 +91,21 @@ def main():
                         login_acc_type = input('acc_type: ')
                         login_password = input('password: ')
                         confirm_password_login = input('confirm password: ')
-                        login_valid = User.user.check_login(login_user_name,login_password,login_acc_type,confirm_password_login)
+                        login_valid = user.User.check_login(login_user_name,login_password,login_acc_type,confirm_password_login)
                         if login_valid:
                             print('login was successful.')
                             is_login = False
-                            user_obj = User.User.return_user(login_user_name,login_acc_type,login_password,confirm_password_login)
+                            user_obj = user.user.return_user(login_user_name,login_acc_type,login_password,confirm_password_login)
                             main(login_user_name,user_obj)
                         else:
                                 print('Login was unsuccessful.Please try again.')
                     elif short_code == 'da':
 
-                            if display_user():
+                            if display_users_():
                                     print("Here is a list of all your accounts")
                                     print('\n')
 
-                                    for user in display_users():
+                                    for user in display_user():
                                             print(f"{user.user_name} {user.acc_type} .....{user.password}")
 
                                     print('\n')
@@ -91,6 +136,6 @@ def main():
                     else:
                             print("I really didn't get that. Please use the short codes")
 
-            if __name__ == '__main__':
+if __name__ == '__main__':
     
-                main()
+        main()
